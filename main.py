@@ -4,7 +4,11 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from config import TOKEN
 from datetime import datetime
+
+#user class
 from user import User
+#keyboard class
+import keyboard
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
@@ -24,6 +28,14 @@ async def get_data(msg: types.Message):
     column = msg.get_args().split()
     await msg.reply(f"Информация {column[0]} = {str(User(msg.from_user).GetColumn(str(column[0])))}" )
 
+@dp.message_handler(commands=['inlinekeyboard'])
+async def SendInlineKeyboard(msg: types.Message):
+    await msg.reply(f"Держи", reply_markup=keyboard.GenerateTextInlineKeyboard())
+    
+@dp.message_handler(commands=['testkeyboard'])
+async def SendInlineKeyboard(msg: types.Message):
+    await msg.reply(f"Держи", reply_markup=keyboard.GenerateTestKeyboard())
+
 if __name__ == '__main__':
-    print(f"Bot started at {datetime.now}")
+    print(f"Bot started at {str(datetime.now())}")
     executor.start_polling(dp)

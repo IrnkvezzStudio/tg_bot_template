@@ -7,6 +7,7 @@ class User:
         self.userid = clUser.id
         self.clUser = clUser
         if path.exists(f"users/{str(self.userid)}.json") == False:
+            print(f"New user. ID: {self.userid}, username: {self.clUser.username}")
             #collecting information
             with open(f"users/{str(self.userid)}.json", 'w') as file:
                 data = {
